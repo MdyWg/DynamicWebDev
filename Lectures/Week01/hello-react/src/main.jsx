@@ -10,4 +10,8 @@ const el = document.getElementById('root')
 const root = ReactDOM.createRoot(el)
 
 // render our react project in the root element
-root.render(<App />)
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+) 
