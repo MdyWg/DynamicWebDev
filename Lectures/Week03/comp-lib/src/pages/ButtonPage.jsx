@@ -38,6 +38,14 @@ const ButtonPage = () => {
         <Button primary secondary outline>Primary Secondary Outline</Button>
       </div>
 
+      {/* HW */}
+      <div className="mb-3">
+        <Button danger outline rounded small>Danger Outline Rounded Small</Button>
+      </div>
+      <div className="mb-3">
+        <Button success outline large>Success Outline Large</Button>
+      </div>
+
       {/* <button className="px-8 py-3 bg-blue-500 text-white border border-blue-500">Click Me</button> */}
     </>
   )

@@ -1,0 +1,133 @@
+.card {
+  border-radius: 20px;
+  border: 0.25rem solid var(--c-red);
+  background: #e9fcd7;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem;
+  max-width: 90%;
+  margin: 1rem;
+}
+
+.image_col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75%;
+}
+
+.img {
+  height: auto;
+  border: 0.25rem solid var(--c-red);
+}
+
+.card_text {
+  display: flex;
+  flex-direction: column;
+}
+
+.card_lists {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-left: 1.5rem;
+}
+
+.recipe_info {
+  margin-left: 1.5rem;
+}
+
+.recipe_title,
+.list_title {
+  font-family: var(--ff-acme);
+  font-weight: 400;
+  border-bottom: 0.25rem solid var(--c-red);
+}
+
+.recipe_title {
+  margin: 1rem;
+  font-size: 2.5rem;
+}
+
+.list_title {
+  margin: 0.5rem 0;
+  font-size: 1.625rem;
+  color: var(--c-red);
+  width: 90%;
+}
+
+.ingredients_list {
+  width: 40%;
+}
+
+.ingredients_list ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.list_item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  font-weight: bold;
+}
+
+.list_item span {
+  display: block;
+}
+
+.list_item .measure {
+  width: 25%;
+  margin-right: 2rem;
+  flex-shrink: 0;
+}
+
+.instructions_list {
+  width: 70%;
+}
+
+.instructions_list ol {
+  padding-left: 3rem;
+  border-left: 2px solid black;
+
+}
+
+.instructions_list ol li {
+  font-weight: bold;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.rating_btn_slot {
+  display: inline-block;
+  width: 2.5rem;
+  text-align: center;
+}
+
+.rating_btn {
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background: black;
+  color: white;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.hearts {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  color: var(--c-red);
+  font-size: 2rem;
+  min-height: 1.25rem;
+  min-width: 7rem;
+}

@@ -4,7 +4,9 @@ import cx from 'classnames'
 import {twMerge} from 'tailwind-merge'
 
 const Button = (props) => {
-  const {children, primary, secondary, success, danger, warning, rounded, outline, 
+  const {children, primary, secondary, success, danger, warning, rounded, outline,
+    // HW
+    small, large, 
     //spreads rest of props to button element
     ...otherProps} = props
   
@@ -35,8 +37,12 @@ const Button = (props) => {
     'bg-red-500 border-red-500 text-white' : danger, 
     'bg-yellow-500 border-yellow-500 text-white' : warning, 
     // modifiers can be combined with color variants
-    'rounded-full': rounded, 
+    'rounded-full': rounded,
     'bg-white': outline,
+    // size variants, only one should be used at a time
+    // HW
+    'px-1 py-1 text-sm': small,
+    'px-10 py-10 text-lg': large,
     'text-blue-500': outline && primary, 
     'text-gray-500': outline && secondary,   
     'text-green-500': outline && success, 
