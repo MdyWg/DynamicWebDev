@@ -1,9 +1,10 @@
 import ButtonPage from './pages/ButtonPage'
+import AccordionPage from './pages/AccordianPage'
 
 const App = () => {
   return (
     <div className="container mx-auto mt-4">
-      <ButtonPage />
+      <AccordionPage/>
     </div>
   )
 }
