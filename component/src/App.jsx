@@ -1,9 +1,9 @@
-import DropdownPage from './pages/DropdownPage'
+import PaginationPage from "./pages/PaginationPage"
 
 const App = () => {
   return (
     <div className="container mx-auto mt-4">
-      <DropdownPage/>
+      <PaginationPage/>
     </div>
   )
 }
