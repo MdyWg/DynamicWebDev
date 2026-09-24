@@ -2,6 +2,7 @@ import {Routes, Route} from 'react-router-dom'
 import ButtonPage from './pages/ButtonPage'
 import AccordionPage from './pages/AccordianPage'
 import DropdownPage from './pages/DropdownPage'
+import ModalPage from './pages/ModalPage'
 import NavBar from './components/NavBar'
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="/" element={<ButtonPage/>}/>
         <Route path="/accordion" element={<AccordionPage/>}/>
         <Route path="/dropdown" element={<DropdownPage/>}/>
+        <Route path="/modal" element= {<ModalPage/>}/>
       </Routes>
       </div>
     </div>
