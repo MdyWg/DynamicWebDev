@@ -1,4 +1,8 @@
-import {useState} from 'react'
+// the effect to handle defaultTerm used [] to make sure it only runs once when the component mounts
+// and not re-run on every render, wasting API calls
+
+// if images was put into [] instead, the effect would run every time images change which could waste API calls
+import {useState, useEffect} from 'react'
 import SearchBar from './components/SearchBar'
 import ImageList from './components/ImageList'
 import {searchImages} from './api'
@@ -8,6 +12,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
   const [searched, setSearched] = useState(false)
+  const defaultTerm = 'cats'
 
   const handleSubmit = async (term) => {
     setIsLoading(true)
@@ -29,9 +34,13 @@ const App = () => {
     }
   }
 
+  useEffect(() => {
+    handleSubmit(defaultTerm)
+  }, [])
+
   return (
     <div>
-      <SearchBar onSubmit={handleSubmit} /> <br />
+      <SearchBar onSubmit={handleSubmit} defaultTerm={defaultTerm} />
       {isLoading && <p className="p-4 text-gray-500">Searching ...</p>}
       {error && <p className="p-4 text-red-500">{error}</p>}
       {!isLoading && !error && searched && images.length === 0 && (
