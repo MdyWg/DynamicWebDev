@@ -60,6 +60,7 @@ const Grid = () => {
 
   useEffect(() => {
     if (choiceOne && choiceTwo) {
+      setDisabled(true)
       // if the 2 srcs match, we picked the same card
       if (choiceOne.src === choiceTwo.src) {
           // never edit cards directly, make a copy and use setter
