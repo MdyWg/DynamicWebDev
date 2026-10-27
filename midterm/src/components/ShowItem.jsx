@@ -1,12 +1,13 @@
 import {useState} from 'react'
 import ShowEdit from './ShowEdit'
 import useShowsContext from '../hooks/use-shows-context'
+import isCompleted from '../util/is-completed'
 
 const ShowItem = (props) => {
   // we still need the concept of an individual show as a prop
   const {show} = props
   // these are not onEdit etc... they are the functions from valuesToShare in ShowsContext Provider component
-  const {deleteShowById, editShowById, toggleShowById} = useShowsContext()
+  const {deleteShowById, editShowById} = useShowsContext()
   // THIS one belongs here. Whether this row is showing its edit form is
   // nobody else's business -- App does not care, the other rows do not care.
   const [showEdit, setShowEdit] = useState(false)
@@ -21,44 +22,34 @@ const ShowItem = (props) => {
     setShowEdit(!showEdit)
   }
 
-  const handleSubmit = (id, newTitle, newEpisode) => {
-    editShowById(id, newTitle, newEpisode)
+  const handleSubmit = (id, newTitle, newEpisode, newTotalEpisodes) => {
+    editShowById(id, newTitle, newEpisode, newTotalEpisodes)
     // close the form once the edit has gone up
     setShowEdit(false)
-  }
-
-  const handleToggle = () => {
-    // send the OPPOSITE of what it is now
-    toggleShowById(show.id, !show.done)
   }
 
   if (showEdit) {
     return <ShowEdit show={show} onSubmit={handleSubmit} />
   }
 
-  return (
-    <div className="flex items-center justify-between border-b border-gray-200 py-3">
-      <label className="flex items-center gap-3">
-        <input
-          type="checkbox"
-          checked={show.done || false}
-          onChange={handleToggle}
-          className="h-4 w-4"
-        />
-        <span className={show.done ? 'line-through text-gray-400' : ''}>
-          {show.title}
-        </span>
-        {/* update later */}
-        <span className={show.done ? 'line-through text-gray-400' : ''}>
-          {show.episode}
-        </span>
-      </label>
+  const completed = isCompleted(show)
 
-      <div className="flex gap-3 text-sm">
-        <button onClick={handleEditClick} className="text-blue-700">
+  return (
+    <div className="flex items-center justify-between gap-4 py-4">
+      <span className={`min-w-0 font-medium ${completed ? 'text-neutral-500' : 'text-white'}`}>
+        {show.title}
+      </span>
+
+      <div className="flex items-center gap-3 text-sm">
+        <span
+          className={`border px-2.5 py-0.5 font-medium ${completed ? 'border-white bg-white text-black' : 'border-neutral-600 text-white'}`}
+        >
+          Ep {show.episode || 0} / {show.totalEpisodes || '?'}
+        </span>
+        <button onClick={handleEditClick} className="text-neutral-300 hover:text-white hover:underline">
           edit
         </button>
-        <button onClick={handleDelete} className="text-red-600">
+        <button onClick={handleDelete} className="text-neutral-300 hover:text-white hover:underline">
           delete
         </button>
       </div>

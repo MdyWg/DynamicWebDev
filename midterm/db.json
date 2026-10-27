@@ -1,10 +1,34 @@
 {
   "shows": [
     {
-      "title": "Avatar",
-      "episode": "12",
-      "done": false,
+      "title": "Avatar: The Last Airbender",
+      "episode": 33,
+      "totalEpisodes": 66,
       "id": 1
+    },
+    {
+      "title": "Frieren Season 1",
+      "episode": 28,
+      "totalEpisodes": 28,
+      "id": 2
+    },
+    {
+      "title": "One Piece ",
+      "episode": 915,
+      "totalEpisodes": null,
+      "id": 3
+    },
+    {
+      "title": "Arcane Season 1",
+      "episode": 9,
+      "totalEpisodes": 9,
+      "id": 4
+    },
+    {
+      "title": "The Office Season 1",
+      "episode": 0,
+      "totalEpisodes": 6,
+      "id": 5
     }
   ]
 }

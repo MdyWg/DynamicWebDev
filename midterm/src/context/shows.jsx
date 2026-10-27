@@ -4,14 +4,13 @@ import {
   createShow as createShowRequest,
   deleteShow as deleteShowRequest,
   updateShow as updateShowRequest,
-  toggleShow as toggleShowRequest,
 } from '../api'
 
 // createContext makes a channel, Nothing is in it yet
 const ShowsContext = createContext()
 
 // Provider is an ordinary component. Everything used to live in App,
-// lives here now -- the state, and the five functions that actually change it
+// lives here now -- the state, and the four functions that actually change it
 const Provider = (props) => {
   const {children} = props
   const [shows, setShows] = useState([])
@@ -37,9 +36,9 @@ const Provider = (props) => {
     }
   }, [])
 
-  const createShow = async (title, episode) => {
+  const createShow = async (title, episode, totalEpisodes) => {
     // the server makes the id now, so we no longer invent one
-    const newShow = await createShowRequest(title, episode)
+    const newShow = await createShowRequest(title, episode, totalEpisodes)
     const updatedShows = [...shows, newShow]
     setShows(updatedShows)
   }
@@ -55,26 +54,18 @@ const Provider = (props) => {
     setShows(updatedShows)
   }
 
-  const editShowById = async (id, newTitle, newEpisode) => {
+  const editShowById = async (id, newTitle, newEpisode, newTotalEpisodes) => {
     // find the whole show and send all of it, because PUT replaces
     const show = shows.find((show) => show.id === id)
-    const updated = await updateShowRequest({...show, title: newTitle, episode: newEpisode})
+    const updated = await updateShowRequest({
+      ...show,
+      title: newTitle,
+      episode: newEpisode,
+      totalEpisodes: newTotalEpisodes,
+    })
 
     // map returns a new array the SAME length. Every show comes back; the one
     // we edited comes back as the object the SERVER sent us.
-    const updatedShows = shows.map((show) => {
-      if (show.id === id) {
-        return updated
-      }
-      return show
-    })
-    setShows(updatedShows)
-  }
-
-  const toggleShowById = async (id, done) => {
-    // same shape as every other one: ask the server, then map the answer in
-    const updated = await toggleShowRequest(id, done)
-
     const updatedShows = shows.map((show) => {
       if (show.id === id) {
         return updated
@@ -95,7 +86,6 @@ const Provider = (props) => {
     createShow,
     deleteShowById,
     editShowById,
-    toggleShowById,
   }
 
   return (

@@ -7,6 +7,7 @@ const ShowCreate = () => {
   // else needs to know what you are halfway through typing
   const [title, setTitle] = useState('')
   const [episode, setEpisode] = useState('')
+  const [totalEpisodes, setTotalEpisodes] = useState('')
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value)
@@ -16,32 +17,50 @@ const ShowCreate = () => {
     setEpisode(event.target.value)
   }
 
+  const handleTotalEpisodesChange = (event) => {
+    setTotalEpisodes(event.target.value)
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
-    createShow(title, episode)
+    createShow(
+      title,
+      episode === '' ? 0 : Number(episode),
+      totalEpisodes === '' ? null : Number(totalEpisodes)
+    )
     // clear the box. This is only possible BECAUSE the input is controlled.
     setTitle('')
     setEpisode('')
+    setTotalEpisodes('')
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2 mb-6">
+    <form onSubmit={handleSubmit} className="mb-8 flex flex-col gap-2 border border-neutral-800 bg-neutral-950 p-4 sm:flex-row">
       <input
         type="text"
         value={title}
         onChange={handleTitleChange}
         placeholder="Show title"
-        className="flex-1 border border-gray-300 rounded px-3 py-2"
+        className="min-w-0 flex-1 border border-neutral-700 bg-black px-3 py-2 text-white placeholder:text-neutral-500"
       />
       <input
         type="number"
         min="1"
+        max={totalEpisodes || undefined}
         value={episode}
         onChange={handleEpisodeChange}
         placeholder="Episode"
-        className="w-28 border border-gray-300 rounded px-3 py-2"
+        className="border border-neutral-700 bg-black px-3 py-2 text-white placeholder:text-neutral-500 sm:w-28"
       />
-      <button className="bg-blue-900 text-white px-5 py-2 rounded">Add</button>
+      <input
+        type="number"
+        min="1"
+        value={totalEpisodes}
+        onChange={handleTotalEpisodesChange}
+        placeholder="Total"
+        className="border border-neutral-700 bg-black px-3 py-2 text-white placeholder:text-neutral-500 sm:w-24"
+      />
+      <button className="bg-white px-5 py-2 font-medium text-black hover:bg-neutral-200">Add</button>
     </form>
   )
 }
