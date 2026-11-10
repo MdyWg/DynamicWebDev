@@ -29,6 +29,12 @@
       "episode": 0,
       "totalEpisodes": 6,
       "id": 5
+    },
+    {
+      "title": "Gravity Falls Season 1",
+      "episode": 20,
+      "totalEpisodes": 20,
+      "id": 6
     }
   ]
 }

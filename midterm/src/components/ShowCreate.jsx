@@ -22,6 +22,7 @@ const ShowCreate = () => {
   }
 
   const handleSubmit = (event) => {
+    // stop browser from reloading page when form submitted
     event.preventDefault()
     createShow(
       title,
