@@ -61,4 +61,15 @@ export const {
   cartCleared,
 } = cartSlice.actions
 
+export const selectCartItems = (state) => state.cart.items
+
+export const selectCartCount = (state) =>
+  state.cart.items.reduce((running, item) => running + item.quantity, 0)
+
+export const selectCartTotal = (state) =>
+  state.cart.items.reduce(
+    (running, item) => running + item.quantity * item.price,
+    0
+  )
+
 export default cartSlice.reducer

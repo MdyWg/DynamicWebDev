@@ -1,18 +1,14 @@
 import {useSelector} from 'react-redux'
+import {selectCartCount, selectCartTotal} from '../features/cartSlice'
 import {selectFavouriteCount} from '../features/favouritesSlice'
 
 const Header = () => {
   // useSelector take a function and hands it the WHOLE ENTIRE store state
   // and it gives you back whatever the selector function returns
   // This component re-renders ONLY when the value it picked out actually changes
-  const items = useSelector((state) => state.cart.items)
+  const count = useSelector(selectCartCount)
+  const total = useSelector(selectCartTotal)
   const favouriteCount = useSelector(selectFavouriteCount)
-
-  const count = items.reduce((running, item) => running + item.quantity, 0)
-  const total = items.reduce(
-    (running, item) => running + item.quantity * item.price,
-    0
-  )
 
   return (
     <header className="border-b-4 border-ink">

@@ -1,7 +1,12 @@
-import {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {PRINTS} from '../data/prints'
 import {itemAdded} from '../features/cartSlice'
+import {
+  filterChanged,
+  favouritesFilterToggled,
+  selectColorFilter,
+  selectShowOnlyFavourites,
+} from '../features/uiSlice'
 import {
   favouriteToggled,
   selectFavouriteIds,
@@ -13,6 +18,8 @@ const SWATCH = {
   blue: 'bg-flat-blue',
   yellow: 'bg-flat-yellow',
 }
+
+const FILTERS = ['all', 'red', 'blue', 'yellow']
 
 const PrintCard = ({print}) => {
   // all ths is doing is giving us direct access to store's dispatch function
@@ -58,35 +65,63 @@ const PrintCard = ({print}) => {
 }
 
 const Catalog = () => {
-  const [onlyFavourites, setOnlyFavourites] = useState(false)
+  const dispatch = useDispatch()
+  const colorFilter = useSelector(selectColorFilter)
+  const showOnlyFavourites = useSelector(selectShowOnlyFavourites)
   const favouriteIds = useSelector(selectFavouriteIds)
 
-  const visiblePrints = onlyFavourites
-    ? PRINTS.filter((print) => favouriteIds.includes(print.id))
-    : PRINTS
+  const visible = PRINTS.filter((print) => {
+    if (colorFilter !== 'all' && print.color !== colorFilter) {
+      return false
+    }
+
+    if (showOnlyFavourites && !favouriteIds.includes(print.id)) {
+      return false
+    }
+
+    return true
+  })
 
   return (
     <section>
-      <div className="border-b-4 border-ink px-3 py-2">
+      <div className="flex border-b-4 border-ink">
+        {FILTERS.map((filter) => {
+          const isActive = filter === colorFilter
+
+          return (
+            <button
+              key={filter}
+              onClick={() => dispatch(filterChanged(filter))}
+              className={`flex-1 border-r-4 border-ink px-2 py-2 text-xs font-black uppercase ${
+                isActive ? 'bg-ink text-paper' : 'bg-paper'
+              }`}
+            >
+              {filter}
+            </button>
+          )
+        })}
+
         <button
-          className={`border-4 border-ink px-3 py-1 text-xs font-black uppercase ${
-            onlyFavourites ? 'bg-flat-red text-paper' : 'bg-paper'
+          onClick={() => dispatch(favouritesFilterToggled())}
+          aria-pressed={showOnlyFavourites}
+          className={`flex-1 px-2 py-2 text-xs font-black uppercase ${
+            showOnlyFavourites ? 'bg-flat-red text-paper' : 'bg-paper'
           }`}
-          aria-pressed={onlyFavourites}
-          onClick={() => setOnlyFavourites(!onlyFavourites)}
         >
-          {onlyFavourites ? 'Showing favourites' : 'Show only favourites'}
+          Favs
         </button>
       </div>
 
       <ul className="grid grid-cols-2">
-        {visiblePrints.map((print) => (
+        {visible.map((print) => (
           <PrintCard key={print.id} print={print} />
         ))}
       </ul>
 
-      {onlyFavourites && visiblePrints.length === 0 && (
-        <p className="px-3 py-4 text-sm font-black uppercase">No favourites yet</p>
+      {visible.length === 0 && (
+        <p className="px-3 py-4 text-sm font-black uppercase">
+          Nothing matches these filters
+        </p>
       )}
     </section>
   )
